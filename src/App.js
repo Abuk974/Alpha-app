@@ -4,6 +4,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <div className='container'>
       <h1>Weather App</h1>
       <small>
           <a
@@ -13,6 +14,7 @@ function App() {
           > 
          Coded by  Abuk Sedonia 
         </small>
+        </div>
     </div>
   );
 }
