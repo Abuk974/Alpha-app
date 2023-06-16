@@ -1,5 +1,6 @@
 import React,{useState} from "react";
-import axios from "axios"
+import axios from "axios";
+import FormattedDate from "./FormattedDate";
 import "./Weather.css"
 
 export default function Weather(props){
@@ -11,11 +12,14 @@ const[weatherData, setweatherData]= useState({ready: false})
             ready:true,
             temperature: response.data.main.temp,
             humidity: response.data.main.humidity,
+            date:new Date(response.data.dt*1000),
+            description:response.data.Weather[0].description,
+            iconUrl:"https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
             Wind:response.data.wind.speed,
-            description:response.data.main.description,
             city: response.data.name,
             
-            iconUrl:"https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+            
+            
         })
 
     }
@@ -40,8 +44,11 @@ const[weatherData, setweatherData]= useState({ready: false})
     
                 <h1>{weatherData.city}</h1>
                 <ul>
-                    <li>Wednesday:7:00</li>
-                    <li>{weatherData.description}</li>
+                    <li>
+                 <FormattedDate date={weatherData.date}/>
+                    </li>
+                    
+                    <li className="text-capitalize">{weatherData.description}</li>
                 </ul>
                 <div className="row mt-3">
                     <div className="col-6">
@@ -71,9 +78,9 @@ const[weatherData, setweatherData]= useState({ready: false})
             
         );
     } else {
-    const apiKey="49b631c45785fe73d2a88477803dea22";
+    const apiKey="e7be0e09c2bc8e3d45069a7681cd06a3";
     let units="metric"
-    let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=${units}`;
+    let apiUrl=`https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&q=${props.defaultCity}&appid=${apiKey}&units=${units}`;
     axios.get(apiUrl).then(handleResponse);
 
     return"loading..."
