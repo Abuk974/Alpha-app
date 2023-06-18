@@ -1,11 +1,12 @@
 import React,{useState} from "react";
+import WeatherInfo from "./WeatherInfo";
 import axios from "axios";
 import "./Weather.css";
-import WeatherInfo from "./WeatherInfo";
 
 export default function Weather(props){
 const[weatherData, setweatherData]= useState({ready: false});
 const[city, setCity]=useState(props.defaultCity);
+
 
     function handleResponse(response){
         console.log(response.data)
@@ -15,7 +16,7 @@ const[city, setCity]=useState(props.defaultCity);
             humidity: response.data.main.humidity,
             date:new Date(response.data.dt*1000),
             description:response.data.description,
-            iconUrl:"https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+            iconUrl: "https://openweathermap.org/img/wn/10d@2x.png",
             Wind:response.data.wind.speed,
             city: response.data.name, 
         })
@@ -55,8 +56,8 @@ const[city, setCity]=useState(props.defaultCity);
                     </div>
                     </div>
                     
-                </form>
                 <WeatherInfo data={weatherData}/>
+                </form>
                 
                 </div>
             
